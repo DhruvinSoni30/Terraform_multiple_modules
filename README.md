@@ -496,9 +496,10 @@ Run below command one by one from each folder i.e. `stg`, `dev` & `prod` and you
   terraform apply
   ```
   
-  
-
-
+  ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/1.png)
+  ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/2.png)
+  ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/3.png)
+  ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/4.png)
 
 
 
