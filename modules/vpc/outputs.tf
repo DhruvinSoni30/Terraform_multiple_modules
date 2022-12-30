@@ -1,6 +1,6 @@
 # Getting VPC ID
 output "vpc_id" {
-  value = aws_vpc.demo_vpc.id
+  value = aws_vpc.demo_vpc.id 
 }
 
 # Getting Subnet ID
