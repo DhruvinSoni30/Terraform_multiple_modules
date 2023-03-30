@@ -8,6 +8,6 @@ terraform {
     bucket = "tf-state-dhsoni"
     region = "us-west-2"
     key    = "dev/terraform.tfstate"
-    profile = "default"
+    #profile = "default"
   }
   }
