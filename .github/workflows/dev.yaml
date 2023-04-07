@@ -26,18 +26,43 @@ jobs:
        
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
-      
+  fmt:
+    name: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform formate
+        id: fmt
+        run: terraform fmt
+        working-directory: ./dev
+  validate:
+    runs-on: ubuntu-latest
+    name: validate
+    steps:
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+        working-directory: ./dev
+  init:
+    runs-on: ubuntu-latest
+    name: init
+    steps:
       - name: Terraform Init
         id: init
         run: terraform init
         working-directory: ./dev
-      
+  plan:
+    runs-on: ubuntu-latest
+    name: plan
+    steps:
       - name: Terraform Plan
         id: plan
         run: terraform plan
         working-directory: ./dev
-      
+  apply:
+    runs-on: ubuntu-latest
+    name: apply
+    steps:
       - name: Terraform Apply
         id: apply
-        run: terraform apply --auto-approve
+        run: terraform apply
         working-directory: ./dev
