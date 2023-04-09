@@ -434,7 +434,7 @@ In this tutorial we will take a look at how to use modules and maintain differen
   ```
   provider "aws" {
     region = var.region
-    profile = "default"
+    #profile = "default"
   }
 
   terraform {
@@ -442,7 +442,7 @@ In this tutorial we will take a look at how to use modules and maintain differen
       bucket = "tf-state-dhsoni"
       region = "us-west-2"
       key    = "dev/terraform.tfstate"
-      profile = "default"
+      #profile = "default"
     }
 
 * The above code will create `dev` folder inside the `tf-state-dhsoni` bucket and store the state file for `dev` environment 
@@ -501,7 +501,59 @@ Run below command one by one from each folder i.e. `stg`, `dev` & `prod` and you
   ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/3.png)
   ![1](https://github.com/DhruvinSoni30/Terraform_multiple_modules/blob/main/images/4.png)
 
+* Now in order to automate the terraform init, plan & apply create `.github/workflows/stg.yaml, dev.yaml & prod.yaml & add below code in it
 
+    ```
+    name: 'Terraform - Production'
+
+    on:
+      push:
+        branches:
+        - main
+        paths: 
+        - prod/**
+      pull_request:
+        branches:
+        - main
+        paths: 
+        - prod/**
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
+
+    jobs:
+      build:
+        name: build
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+
+          - name: Set up Terraform
+            uses: hashicorp/setup-terraform@v1
+
+          - name: Terraform Init
+            id: init
+            run: terraform init
+            working-directory: ./prod
+
+          - name: Terraform Plan
+            id: plan
+            run: terraform plan
+            working-directory: ./prod
+
+          - name: Terraform Apply
+            id: apply
+            run: terraform apply --auto-approve
+            working-directory: ./prod
+    ```
+    
+* The above code is for the prod environment, copy the same code to stg.yaml & dev.yaml & replace working-directory & paths key's value to stg & dev 
+
+* Store the access key & secret key to the secrets & variable section of the repository, github has the default feature it will fetch the keys from there
+
+* That's it now if you commit into the any environment the action will trigger and pipeline will start running 
 
 
 
